@@ -1,9 +1,10 @@
 var telegram = require('node-telegram-bot-api');
 var express = require('express');
+var bodyParser = require('body-parser');
 var packageInfo = require('./package.json');
  
 var token = '256982370:AAHZZm74ZJa1Evz8AvpLeRzChhWj9b0g8Jg';
-var baseurl = 'https://meightbot.herokuapp.com/';
+var baseurl = 'https://meightbot.herokuapp.com';
 
 var bot = new telegram(token);
 bot.setWebHook(baseurl + token);
@@ -69,6 +70,7 @@ bot.on('inline_query', function(inlineQuery) {
 });
 
 var app = express();
+app.use(bodyParser.json());
 
 var favicon = new Buffer('AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA/4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEREQAAAAAAEAAAEAAAAAEAAAABAAAAEAAAAAAQAAAQAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAEAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAA//8AAP//AAD8HwAA++8AAPf3AADv+wAA7/sAAP//AAD//wAA+98AAP//AAD//wAA//8AAP//AAD//wAA', 'base64'); 
 app.get("/favicon.ico", function(req, res) {
