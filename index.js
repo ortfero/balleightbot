@@ -35,11 +35,11 @@ function prediction() {
   return predictionsRu[Math.floor(Math.random() * predictionsRu.length)];
 }
  
-bot.getMe().then(function(me) {
+/*bot.getMe().then(function(me) {
     console.log('Hello! My name is %s!', me.first_name);
     console.log('My id is %s.', me.id);
     console.log('And my username is @%s.', me.username);
-});
+});*/
  
 bot.on('text', function(msg) {  
   var text = msg.text;
@@ -70,11 +70,22 @@ bot.on('inline_query', function(inlineQuery) {
 
 var app = express();
 
+var favicon = new Buffer('AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA/4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEREQAAAAAAEAAAEAAAAAEAAAABAAAAEAAAAAAQAAAQAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAEAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAA//8AAP//AAD8HwAA++8AAPf3AADv+wAA7/sAAP//AAD//wAA+98AAP//AAD//wAA//8AAP//AAD//wAA', 'base64'); 
+app.get("/favicon.ico", function(req, res) {
+  res.statusCode = 200;
+  res.setHeader('Content-Length', favicon.length);
+  res.setHeader('Content-Type', 'image/x-icon');
+  res.setHeader("Cache-Control", "public, max-age=2592000");                // expiers after a month
+  res.setHeader("Expires", new Date(Date.now() + 2592000000).toUTCString());
+  res.end(favicon);
+ });
+
 app.get('/', function(req, res) {
   res.json({ version: packageInfo.version });
 });
 
-app.post('/' + token. function(req, res) {
+app.post('/' + token, function(req, res) {
+  console.log(req.originalUrl);
   bot.processUpdate(req.body);
   res.sendStatus(200);
 });
