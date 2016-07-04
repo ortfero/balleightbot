@@ -1,0 +1,29 @@
+{
+  "name": "meightbot",
+  "version": "1.0.0",
+  "description": "magic eight ball as telegram bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ortfero/meightbot.git"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "magic",
+    "ball"
+  ],
+  "author": "ortfero@gmail.com",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/ortfero/meightbot/issues"
+  },
+  "homepage": "https://github.com/ortfero/meightbot#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "node-telegram-bot-api": "^0.23.3"
+  }
+}
