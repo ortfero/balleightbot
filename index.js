@@ -8,7 +8,7 @@ var baseurl = 'https://meightbot.herokuapp.com';
 var botOptions = { webHook : { host : baseurl, port : 80 } };
 
 var bot = new telegram(token, botOptions);
-bot.setWebHook(baseurl + token);
+bot.setWebHook(baseurl + '/' + token);
 
 var predictionsRu = [
   'Это бесспорно',
