@@ -4,9 +4,10 @@ var bodyParser = require('body-parser');
 var packageInfo = require('./package.json');
  
 var token = '256982370:AAHZZm74ZJa1Evz8AvpLeRzChhWj9b0g8Jg';
-var baseurl = 'https://meightbot.herokuapp.com';
+var baseurl = 'https://meightbot.herokuapp.com/';
+var botOptions = { webHook : true };
 
-var bot = new telegram(token);
+var bot = new telegram(token, botOptions);
 bot.setWebHook(baseurl + token);
 
 var predictionsRu = [
@@ -36,11 +37,11 @@ function prediction() {
   return predictionsRu[Math.floor(Math.random() * predictionsRu.length)];
 }
  
-/*bot.getMe().then(function(me) {
+bot.getMe().then(function(me) {
     console.log('Hello! My name is %s!', me.first_name);
     console.log('My id is %s.', me.id);
     console.log('And my username is @%s.', me.username);
-});*/
+});
  
 bot.on('text', function(msg) {  
   var text = msg.text;
@@ -69,7 +70,7 @@ bot.on('inline_query', function(inlineQuery) {
   bot.answerInlineQuery(inlineQuery.id, [article(inlineQuery.query)]);
 });
 
-var app = express();
+/*var app = express();
 app.use(bodyParser.json());
 
 var favicon = new Buffer('AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA/4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEREQAAAAAAEAAAEAAAAAEAAAABAAAAEAAAAAAQAAAQAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAEAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAA//8AAP//AAD8HwAA++8AAPf3AADv+wAA7/sAAP//AAD//wAA+98AAP//AAD//wAA//8AAP//AAD//wAA', 'base64'); 
@@ -98,4 +99,4 @@ var server = app.listen(port, function () {
   var host = server.address().address;
   var port = server.address().port;
   console.log('Web server started at https://%s:%s', host, port);
-});
+});*/
