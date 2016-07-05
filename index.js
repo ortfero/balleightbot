@@ -5,7 +5,7 @@ var packageInfo = require('./package.json');
  
 var token = '256982370:AAHZZm74ZJa1Evz8AvpLeRzChhWj9b0g8Jg';
 var baseurl = 'https://meightbot.herokuapp.com';
-var botOptions = { webHook : { host : baseurl, port : process.env.port || 8443 } };
+var botOptions = { webHook : { host : baseurl, port : 80/*process.env.port || 8443*/ } };
 
 var bot = new telegram(token, botOptions);
 bot.setWebHook(baseurl + token);
