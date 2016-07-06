@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/ortfero/meightbot#readme",
   "dependencies": {
-    "body-parser": "^1.15.2",
     "node-telegram-bot-api": "^0.23.3"
   }
 }
