@@ -1,4 +1,13 @@
-var telegram = require('node-telegram-bot-api');
+var http = require('http');
+
+var server = http.createServer(function(req, res){
+  res.writeHead(200, { 'Content-Type' : 'text/plain' });
+  res.end('Ok\n');
+});
+server.listen(80, 'https://meightbot.herokuapp.com');
+console.log('Server running at https://meightbot.herokuapp.com:80');
+
+/*var telegram = require('node-telegram-bot-api');
 var express = require('express');
 var bodyParser = require('body-parser');
 var packageInfo = require('./package.json');
@@ -69,6 +78,7 @@ function article(text) {
 bot.on('inline_query', function(inlineQuery) {
   bot.answerInlineQuery(inlineQuery.id, [article(inlineQuery.query)]);
 });
+*/
 
 /*var app = express();
 app.use(bodyParser.json());
