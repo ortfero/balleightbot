@@ -107,5 +107,5 @@ function showHistory(chatId) {
 function formatMessage(msg) {
   var date = new Date(msg.date * 1000);
   var name = !!msg.from.username ? msg.from.username : msg.from.first_name + ' ' + msg.from.last_name;
-  return '[' + date.toUTCString() + '] @' + msg.from.username + ' : ' + msg.text;
+  return '[' + date.toUTCString() + '] @' + name + ' : ' + msg.text;
 }
