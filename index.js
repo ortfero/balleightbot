@@ -39,7 +39,7 @@ var predictionsRu = [
 ];
 
 var history = new CircularBuffer(historyLength);
-Files.readFile('history.txt', (err, data) => {
+Files.readFile('history.txt', function(err, data) {
   if(err)
     return console.log('Unable to read history');
   var lines = data.toString().split('\n');
@@ -55,7 +55,7 @@ setInterval(function() {
     return;
   Files.writeFile("history.txt", text, function(err) {
     if(err) return console.log('Unable to save history');
-  }
+  });
 }, historySaveInterval);
 
 function prediction() {
