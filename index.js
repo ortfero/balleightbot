@@ -1,11 +1,14 @@
 var http = require('http');
 
+var host = 'meightbot.herokuapp.com';
+var port = process.env.PORT;
+
 var server = http.createServer(function(req, res){
   res.writeHead(200, { 'Content-Type' : 'text/plain' });
   res.end('Ok\n');
 });
-server.listen(80, 'meightbot.herokuapp.com');
-console.log('Server running at https://meightbot.herokuapp.com:80');
+server.listen(port, host);
+console.log('Server running at ', host, ':', port);
 
 /*var telegram = require('node-telegram-bot-api');
 var express = require('express');
