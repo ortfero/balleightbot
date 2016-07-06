@@ -5,10 +5,12 @@ var packageInfo = require('./package.json');
  
 var token = '256982370:AAHZZm74ZJa1Evz8AvpLeRzChhWj9b0g8Jg';
 var baseurl = 'https://meightbot.herokuapp.com';
-var botOptions = { webHook : { host : '0.0.0.0', port : 8443 } };
+var botOptions = { webHook : { host : '0.0.0.0', port : process.env.PORT } };
 
 var bot = new telegram(token, botOptions);
-bot.setWebHook(baseurl + '/' + token);
+var webHook = baseurl + ':' + process.env.PORT + '/' + token;
+console.log('Web hook at ', webHook);
+bot.setWebHook(webHook);
 
 var predictionsRu = [
   'Это бесспорно',
