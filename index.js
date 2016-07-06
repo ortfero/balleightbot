@@ -1,23 +1,11 @@
-var http = require('http');
-
-var host = 'meightbot.herokuapp.com';
-var port = 8443;
-
-var server = http.createServer(function(req, res){
-  res.writeHead(200, { 'Content-Type' : 'text/plain' });
-  res.end('Ok\n');
-});
-server.listen(port);
-console.log('Server running at ', host, ':', port);
-
-/*var telegram = require('node-telegram-bot-api');
+var telegram = require('node-telegram-bot-api');
 var express = require('express');
 var bodyParser = require('body-parser');
 var packageInfo = require('./package.json');
  
 var token = '256982370:AAHZZm74ZJa1Evz8AvpLeRzChhWj9b0g8Jg';
 var baseurl = 'https://meightbot.herokuapp.com';
-var botOptions = { webHook : { host : baseurl, port : 80 } };
+var botOptions = { webHook : { host : '0.0.0.0', port : 8443 } };
 
 var bot = new telegram(token, botOptions);
 bot.setWebHook(baseurl + '/' + token);
