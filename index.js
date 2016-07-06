@@ -8,7 +8,7 @@ var baseurl = 'https://meightbot.herokuapp.com';
 var botOptions = { webHook : { host : '0.0.0.0', port : process.env.PORT } };
 
 var bot = new telegram(token, botOptions);
-var webHook = baseurl + ':' + process.env.PORT + '/' + token;
+var webHook = baseurl + '/' + token;
 console.log('Web hook at ', webHook);
 bot.setWebHook(webHook);
 
