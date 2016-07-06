@@ -1,7 +1,7 @@
 var http = require('http');
 
 var host = 'meightbot.herokuapp.com';
-var port = 88;
+var port = 443;
 
 var server = http.createServer(function(req, res){
   res.writeHead(200, { 'Content-Type' : 'text/plain' });
