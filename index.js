@@ -69,7 +69,7 @@ function article(text) {
 bot.on('inline_query', function(inlineQuery) {
   bot.answerInlineQuery(inlineQuery.id, [article(inlineQuery.query)]);
 });
-*/
+
 
 /*var app = express();
 app.use(bodyParser.json());
