@@ -48,7 +48,7 @@ bot.getMe().then(function(me) {
  
 bot.on('text', function(msg) {
   var text = msg.text;
-  if(text === '/magic-ball-history')
+  if(text === '/magicballhistory')
     return showHistory(msg.chat.id);
   var lastChar = text.charAt(text.length - 1);
   if(lastChar !== '?') return;
@@ -79,16 +79,10 @@ bot.on('inline_query', function(inlineQuery) {
 function showHistory(chatId) {
   var array = history.toarray();
   var text = array.join('\n');
-  /*var n = array.length;
-  var text = '';
-  for(var i = 0; i < n; i++) {
-    text += array[i];
-    text += '\n';
-  }*/
   bot.sendMessage(chatId, text);
 }
 
 function formatMessage(msg) {
   var date = new Date(msg.date * 1000);
-  return '[' + date.toLocaleString() + '] @' + msg.from.username + ' : ' + msg.text;
+  return '[' + date.toUTCString() + '] @' + msg.from.username + ' : ' + msg.text;
 }
