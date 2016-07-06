@@ -7,7 +7,7 @@ var server = http.createServer(function(req, res){
   res.writeHead(200, { 'Content-Type' : 'text/plain' });
   res.end('Ok\n');
 });
-server.listen(port, host);
+server.listen(port);
 console.log('Server running at ', host, ':', port);
 
 /*var telegram = require('node-telegram-bot-api');
