@@ -10,7 +10,7 @@ var bot = new Telegram(token, botOptions);
 var baseurl = 'https://meightbot.herokuapp.com';
 var webHook = baseurl + '/' + token;
 var historyLength = 100;
-var historySaveInterval = 60000; // every minute
+var historySaveInterval = 1000; // every minute
 
 console.log('Web hook at ', webHook);
 bot.setWebHook(webHook);
@@ -44,17 +44,26 @@ Files.readFile('history.txt', function(err, data) {
     return console.log('Unable to read history');
   var lines = data.toString().split('\n');
   var n = lines.length;
-  for(var i = 0; i < n; i++)
+  console.log('Restoring history...');
+  for(var i = 0; i < n; i++) {
     history.enq(lines[i]);
+    console.log(lines[i]);
+	}
   console.log('History was restored');
 });
 setInterval(function() {
   var array = history.toarray();
+  console.log('Saving history...');
+  if(array.length === 0)
+  	return console.log('No history to save');
+  for(var i = 0; i < array.length; i++)
+  	console.log(array[i]);
   var text = array.join('\n');
   if(text.length === 0)
     return;
   Files.writeFile("history.txt", text, function(err) {
     if(err) return console.log('Unable to save history');
+    console.log('History was saved');
   });
 }, historySaveInterval);
 
@@ -98,9 +107,9 @@ bot.on('inline_query', function(inlineQuery) {
 
 function showHistory(chatId) {
   var array = history.toarray();
+  if(array.length === 0)
+    return bot.sendMessage(chatId, "No history yet");
   var text = array.join('\n');
-  if(text.length === 0)
-    bot.sendMessage(chatId, "No history yet");
   bot.sendMessage(chatId, text);
 }
 
