@@ -52,7 +52,8 @@ bot.on('text', function(msg) {
   var messageOptions = { parse_mode: 'Markdown' };
   var answer = text + '\n*' + prediction() + '*';
   bot.sendMessage(msg.chat.id, answer, messageOptions);
-  if(!!copyChatId) bot.sendMessage(copyChatId, formatMessage(msg.from, answer), messageOptions);  
+  if(!!copyChatId && copyChatId !== msg.chat.id)
+  	bot.sendMessage(copyChatId, formatMessage(msg.from, answer), messageOptions);  
 });
 
 function article(text) {
