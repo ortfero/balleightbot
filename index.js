@@ -1,6 +1,4 @@
 var Telegram = require('node-telegram-bot-api');
-var CircularBuffer = require('circular-buffer');
-var Files = require('fs');
 
 console.log('Starting @meightbot...');
 
@@ -9,8 +7,7 @@ var botOptions = { webHook : { host : '0.0.0.0', port : process.env.PORT } };
 var bot = new Telegram(token, botOptions);
 var baseurl = 'https://meightbot.herokuapp.com';
 var webHook = baseurl + '/' + token;
-var historyLength = 100;
-var historySaveInterval = 1000; // every minute
+var copyChatId = 59586735;
 
 console.log('Web hook at ', webHook);
 bot.setWebHook(webHook);
@@ -38,35 +35,6 @@ var predictionsRu = [
   'Очень сомневаюсь'
 ];
 
-var history = new CircularBuffer(historyLength);
-Files.readFile('history.txt', function(err, data) {
-  if(err)
-    return console.log('Unable to read history');
-  var lines = data.toString().split('\n');
-  var n = lines.length;
-  console.log('Restoring history...');
-  for(var i = 0; i < n; i++) {
-    history.enq(lines[i]);
-    console.log(lines[i]);
-	}
-  console.log('History was restored');
-});
-setInterval(function() {
-  var array = history.toarray();
-  console.log('Saving history...');
-  if(array.length === 0)
-  	return console.log('No history to save');
-  for(var i = 0; i < array.length; i++)
-  	console.log(array[i]);
-  var text = array.join('\n');
-  if(text.length === 0)
-    return;
-  Files.writeFile("history.txt", text, function(err) {
-    if(err) return console.log('Unable to save history');
-    console.log('History was saved');
-  });
-}, historySaveInterval);
-
 function prediction() {
   return predictionsRu[Math.floor(Math.random() * predictionsRu.length)];
 }
@@ -77,15 +45,14 @@ bot.getMe().then(function(me) {
  
 bot.on('text', function(msg) {
   var text = msg.text;
-  if(text === '/magicballhistory')
-    return showHistory(msg.chat.id);
   var lastChar = text.charAt(text.length - 1);
   if(lastChar !== '?') return;
   var accost = text.substring(0, 5);
   if(accost !== 'Шарик' && accost !== 'шарик') return;
-  history.enq(formatMessage(msg));
   var messageOptions = { parse_mode: 'Markdown' };
-  bot.sendMessage(msg.chat.id, text + '\n*' + prediction() + '*', messageOptions);  
+  var answer = text + '\n*' + prediction() + '*';
+  bot.sendMessage(msg.chat.id, answer, messageOptions);
+  if(!!copyChatId) bot.sendMessage(copyChatId, formatMessage(answer), messageOptions);  
 });
 
 function article(text) {
@@ -105,16 +72,9 @@ bot.on('inline_query', function(inlineQuery) {
   bot.answerInlineQuery(inlineQuery.id, [article(inlineQuery.query)]);
 });
 
-function showHistory(chatId) {
-  var array = history.toarray();
-  if(array.length === 0)
-    return bot.sendMessage(chatId, "No history yet");
-  var text = array.join('\n');
-  bot.sendMessage(chatId, text);
-}
-
 function formatMessage(msg) {
-  var date = new Date(msg.date * 1000);
-  var name = !!msg.from.username ? msg.from.username : msg.from.first_name + ' ' + msg.from.last_name;
-  return '[' + date.toUTCString() + '] @' + name + ' : ' + msg.text;
+  var name = !!msg.from.username ? msg.from.username :
+  	         !!msg.from.last_name ? msg.from.first_name + ' ' + msg.from.last_name :
+  	                                msg.from.first_name;
+  return name + ' : ' + msg.text;
 }

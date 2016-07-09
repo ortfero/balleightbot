@@ -23,8 +23,6 @@
   },
   "homepage": "https://github.com/ortfero/meightbot#readme",
   "dependencies": {
-    "circular-buffer": "0.0.6",
-    "fs": "0.0.2",
     "node-telegram-bot-api": "^0.23.3"
   }
 }
