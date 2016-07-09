@@ -52,7 +52,7 @@ bot.on('text', function(msg) {
   var messageOptions = { parse_mode: 'Markdown' };
   var answer = text + '\n*' + prediction() + '*';
   bot.sendMessage(msg.chat.id, answer, messageOptions);
-  if(!!copyChatId) bot.sendMessage(copyChatId, formatMessage(answer), messageOptions);  
+  if(!!copyChatId) bot.sendMessage(copyChatId, formatMessage(msg.from, answer), messageOptions);  
 });
 
 function article(text) {
@@ -72,9 +72,9 @@ bot.on('inline_query', function(inlineQuery) {
   bot.answerInlineQuery(inlineQuery.id, [article(inlineQuery.query)]);
 });
 
-function formatMessage(msg) {
-  var name = !!msg.from.username ? msg.from.username :
-  	         !!msg.from.last_name ? msg.from.first_name + ' ' + msg.from.last_name :
-  	                                msg.from.first_name;
-  return name + ' : ' + msg.text;
+function formatMessage(from, text) {
+  var name = !!from.username ? from.username :
+  	         !!from.last_name ? from.first_name + ' ' + from.last_name :
+  	                            from.first_name;
+  return name + ' : ' + text;
 }
