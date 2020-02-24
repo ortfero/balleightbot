@@ -1,2 +1,2 @@
 # meightbot
-Magic eight ball as Telegram bot
+Magic eight ball as Telegram bot (russian version)
